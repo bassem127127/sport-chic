@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sport Chic | Vitrine de Maillots de Sport Premium</title>
+  <meta name="description" content="Découvrez la vitrine premium de maillots de sport orange et blanc de Sport Chic. Conçus avec des tissus techniques de pointe, anti-transpirants et respirants.">
+  
+  <!-- Google Fonts for Premium Typography (Cairo for Arabic, Inter for Latin) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Modular CSS Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalog.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. STICKY GLASSMORPHIC HEADER
+     ========================================================================== -->
+  <header class="header">
+    <div class="container navbar">
+      <!-- Logo Branding -->
+      <a href="#" class="brand" id="brand-logo">
+        <img class="brand-logo-img" src="images/logo%20sport%20chic.jpg" alt="Sport Chic Logo">
+        <span>SPORT CHIC</span>
+      </a>
+
+      <!-- Desktop Links navigation -->
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" data-i18n="nav_home">Accueil</a>
+        <a href="#showroom" class="nav-link" data-i18n="nav_showroom">Catalogue Showroom</a>
+        <a href="#" class="nav-link" data-i18n="nav_textile">Technologie Textile</a>
+        <a href="#" class="nav-link" data-i18n="nav_stores">Points de Vente</a>
+      </nav>
+
+      <!-- Showroom Quick Actions -->
+      <div class="nav-actions">
+        <!-- Language Switcher Toggle Button -->
+        <button id="lang-switch-btn" class="icon-btn" title="Changer la langue / تغيير اللغة" style="font-weight: 700; font-size: 13px; font-family: var(--font-heading);">
+          AR
+        </button>
+
+        <!-- Desktop Search Indicator - scrolls directly to showroom search -->
+        <a href="#showroom" class="icon-btn" id="nav-search-btn" data-i18n-title="search_tooltip" title="Rechercher des produits">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+
+        <!-- Premium Showcase Inquiry Button -->
+        <a href="#showroom" class="btn btn-primary btn-navbar" id="showroom-inquire-btn" style="padding: 8px 16px; font-size: 13px; margin: 0;" data-i18n="btn_inquire_showroom">
+          Contacter le Showroom
+        </a>
+
+        <!-- Hamburger triggers for mobile nav links -->
+        <button class="hamburger" id="mobile-menu-toggle" aria-label="Menu Mobile">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+     2. HERO BRAND SECTION
+     ========================================================================== -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" class="orange-stroke">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span data-i18n="hero_badge">LA COLLECTION ORANGE CINÉTIQUE</span>
+        </div>
+        <h1 class="hero-title" data-i18n="hero_title">ÉLEVEZ VOS PERFORMANCES <span>SPORTIVES</span></h1>
+        <p class="hero-tagline" data-i18n="hero_tagline">Bienvenue dans la vitrine technique Sport Chic. Découvrez nos séries limitées de maillots de sport aux finitions blanches épurées et orange cinétique. Inspectez les spécifications techniques et demandez un devis instantanément.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#showroom" class="btn btn-primary" data-i18n="btn_discover_showroom">
+            Découvrir la Vitrine
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-bg">
+          <img class="hero-shirt-photo" src="images/0788dd2b-5577-4402-b260-f370153b2e5a.jpg" alt="Sport Chic Premium Sport Shirt" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     3. PRODUCT CATALOG SHOWROOM SECTION
+     ========================================================================== -->
+  <main id="showroom" class="shop-section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 50px;">
+        <h2 style="font-size: 36px; margin-bottom: 12px;" data-i18n="showroom_title">Catalogue Showroom</h2>
+        <p style="color: var(--text-medium); max-width: 580px; margin: 0 auto;" data-i18n="showroom_subtitle">Filtrez par discipline sportive, triez par propriétés techniques ou recherchez vos tissus athlétiques préférés ci-dessous.</p>
+      </div>
+
+      <!-- Filters & search panel controls -->
+      <div class="filter-row">
+        <!-- Category Toggle Pills -->
+        <div class="filter-pills">
+          <button class="filter-btn active" data-category="all" id="cat-all" data-i18n="cat_all">Tous les Produits</button>
+          <button class="filter-btn" data-category="training" id="cat-training" data-i18n="cat_training">Fitness & Entraînement</button>
+          <button class="filter-btn" data-category="running" id="cat-running" data-i18n="cat_running">Course & Cyclisme</button>
+          <button class="filter-btn" data-category="tennis" id="cat-tennis" data-i18n="cat_tennis">Polo de Tennis</button>
+        </div>
+
+        <!-- Search bar inputs -->
+        <div class="search-sort-box">
+          <div class="search-wrapper">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="search-icon">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" class="search-input" data-i18n-placeholder="search_placeholder" placeholder="Rechercher un maillot de sport..." aria-label="Recherche">
+          </div>
+
+          <select id="sort-select" class="sort-select" aria-label="Trier par">
+            <option value="featured" data-i18n="sort_featured">Trier : Recommandés</option>
+            <option value="price-low" data-i18n="sort_price_low">Prix : Croissant</option>
+            <option value="price-high" data-i18n="sort_price_high">Prix : Décroissant</option>
+            <option value="rating" data-i18n="sort_rating">Avis : Les Mieux Notés</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Result Counter text -->
+      <div class="results-meta">
+        <span id="results-count">7 produits trouvés</span>
+        <span data-i18n="results_inspect">Cliquez sur un maillot pour inspecter ses spécifications techniques</span>
+      </div>
+
+      <!-- Main listing Grid elements -->
+      <div class="products-grid" id="products-grid">
+        <!-- Injected via JavaScript module app.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+     4. PRODUCT SHOWCASE DETAILS MODAL
+     ========================================================================== -->
+  <div class="modal" id="quick-view-modal">
+    <div class="modal-container">
+      <button class="close-modal-btn" id="quick-view-close" aria-label="Fermer">×</button>
+      <div id="quick-view-body">
+        <!-- Injected dynamically via JS inside app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     5. SIMULATED SHOWROOM INQUIRY MODAL
+     ========================================================================== -->
+  <div class="modal" id="inquiry-modal">
+    <div class="modal-container inquiry-container" style="max-width: 500px; padding: 40px;">
+      <button class="close-modal-btn" id="inquiry-close" aria-label="Fermer">×</button>
+      
+      <div class="checkout-header" style="text-align: center; margin-bottom: 24px;">
+        <h2 style="font-size: 24px; margin-bottom: 8px;" data-i18n="inquiry_title">Demande d'Information Produit</h2>
+        <p style="color: var(--text-medium); font-size: 14px;" data-i18n="inquiry_subtitle">Soumettez vos coordonnées pour demander un devis de taille ou des spécifications de matériaux à nos experts.</p>
+      </div>
+
+      <form id="inquiry-form" class="form-grid" style="display: grid; gap: 16px;">
+        <input type="hidden" id="inquiry-product-id">
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_selected_shirt">Maillot Sélectionné</label>
+          <input type="text" id="inquiry-product-name" class="form-input" readonly style="background-color: var(--bg-accent-light); font-weight: 700; color: var(--primary);">
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-name" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_full_name">Votre Nom Complet *</label>
+          <input type="text" id="inq-name" class="form-input" data-i18n-placeholder="placeholder_name" placeholder="Saisissez votre nom" required>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-email" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_email">Adresse E-mail *</label>
+          <input type="email" id="inq-email" class="form-input" placeholder="nom@domaine.com" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="inq-size" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_requested_size">Taille Demandée *</label>
+            <select id="inq-size" class="form-input" style="padding: 12px;" required>
+              <option value="S">S - Small</option>
+              <option value="M">M - Medium</option>
+              <option value="L">L - Large</option>
+              <option value="XL">XL - Extra Large</option>
+              <option value="XXL">XXL - Double Extra Large</option>
+            </select>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="inq-qty" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_quantity">Quantité *</label>
+            <input type="number" id="inq-qty" class="form-input" min="1" max="999" value="1" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-msg" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_additional_details">Détails Supplémentaires de la Demande *</label>
+          <textarea id="inq-msg" class="form-input" rows="3" data-i18n-placeholder="placeholder_msg" placeholder="Demander des dimensions précises, des tarifs de volume ou des fiches d'échantillons physiques..." required style="resize: none; font-family: inherit;"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" data-i18n="btn_submit_inquiry">
+          Envoyer la Demande au Showroom
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      
+      <!-- Simulated success message panel -->
+      <div id="inquiry-success-panel" style="display: none; text-align: center; padding: 20px 0;">
+        <div class="success-badge" style="width: 72px; height: 72px; background-color: var(--primary-glow); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="3" fill="none">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 style="font-size: 22px; margin-bottom: 8px; font-weight: 800;" data-i18n="inquiry_success_title">Demande Envoyée !</h3>
+        <p style="color: var(--text-medium); font-size: 14px; margin-bottom: 24px;"><span data-i18n="inquiry_success_text_part1">Merci d'avoir contacté le showroom Sport Chic. Un conseiller technique vous répondra à l'adresse </span><strong id="inq-success-email" style="color: var(--text-dark);"></strong><span data-i18n="inquiry_success_text_part2"> sous 24 heures.</span></p>
+        <div style="background-color: var(--bg-secondary); padding: 14px; border-radius: var(--radius-md); font-size: 13px; font-weight: 700; margin-bottom: 24px; color: var(--text-medium);">
+          <span data-i18n="inquiry_success_code_label">Code de Demande :</span> <span id="inq-success-code" style="color: var(--primary);"></span>
+        </div>
+        <button type="button" id="inquiry-ok-btn" class="btn btn-primary" style="width: 100%;" data-i18n="btn_back_to_showroom">Retour à la Vitrine</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     6. FLOATING TOAST NOTIFICATIONS
+     ========================================================================== -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ==========================================================================
+     7. RICH BRAND FOOTER
+     ========================================================================== -->
+  <footer class="footer-brand">
+    <div class="container footer-grid">
+      <!-- About col -->
+      <div class="footer-col" style="grid-column: span 1.5;">
+        <div class="brand">
+          <img class="brand-logo-img" src="images/logo%20sport%20chic.jpg" alt="Sport Chic Logo">
+          <span>SPORT CHIC</span>
+        </div>
+        <p class="footer-desc" data-i18n="footer_desc">Concevoir des vêtements de sport haute performance pensés pour motiver et durer. Allier innovations textiles techniques et designs de pointe.</p>
+        
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast(getTranslation('toast_newsletter_success')); this.reset();">
+          <input type="email" class="newsletter-input" data-i18n-placeholder="newsletter_placeholder" placeholder="Rejoignez notre newsletter active" aria-label="E-mail" required>
+          <button type="submit" class="btn-icon" title="S'abonner">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Links col 1 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_showroom">Collections Showroom</h4>
+        <ul class="footer-links">
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_running">Hauts de Running</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_training">T-shirts d'Entraînement</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_tennis">Polos de Tennis</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_jackets">Vestes de Sport</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_compression">Sous-couches de Compression</a></li>
+        </ul>
+      </div>
+
+      <!-- Links col 2 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_inquiries">Demandes & Devis</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer_link_quote">Demander un Devis</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_group">Commandes de Groupe</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_specs">Fiches Techniques Tissus</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_appt">Rendez-vous Showroom</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_b2b">Partenariats B2B</a></li>
+        </ul>
+      </div>
+
+      <!-- Links col 3 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_company">L'Entreprise</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer_link_mission">Notre Mission</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_fabrics">Tissus Durables</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_careers">Recrutement</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_press">Espace Presse</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_stores">Nos Points de Vente</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright and payments bar -->
+    <div class="container footer-bottom">
+      <div class="footer-copyright" data-i18n="footer_copyright">
+        &copy; 2026 Sport Chic Inc. Catalogue de démonstration technique showroom.
+      </div>
+      <div class="footer-payment-methods">
+        <span data-i18n="footer_b2b_showcase">Vitrine B2B</span> • 
+        <span data-i18n="footer_quote_requests">Demandes de Devis</span> • 
+        <span data-i18n="footer_sustainable_wear">Activewear Durable</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     8. MODULAR APP CONTROLLER
+     ========================================================================== -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   1. PREMIUM DESIGN SYSTEM TOKENS
+   ========================================================================== */
+:root {
+  /* Curated light and orange palette */
+  --primary: #ff6b35;          /* Vivid Kinetic Orange */
+  --primary-hover: #e04b12;
+  --primary-glow: rgba(255, 107, 53, 0.15);
+  
+  --accent-amber: #f7b05b;     /* Dynamic Soft Amber */
+  --accent-amber-glow: rgba(247, 176, 91, 0.15);
+
+  --text-dark: #0f172a;        /* Deep Charcoal */
+  --text-medium: #475569;      /* Slate Gray */
+  --text-light: #94a3b8;       /* Muted Lavender Gray */
+  --text-white: #ffffff;
+
+  --bg-primary: #ffffff;      /* Pure Pristine White */
+  --bg-secondary: #f8fafc;    /* Clean Off-White */
+  --bg-accent-light: #fff8f5; /* Warm Orange Tint Tint */
+  --bg-accent-medium: #fff1eb;/* Light Peach Orange */
+
+  --border-light: #f1f5f9;
+  --border-medium: #e2e8f0;
+  
+  /* Typography Scale */
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+
+  /* Spacing Tokens */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-round: 50%;
+
+  /* High-end transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.09);
+  --shadow-glow: 0 12px 24px rgba(255, 107, 53, 0.2);
+}
+
+/* ==========================================================================
+   2. GLOBAL BASE RESETS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-medium);
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  user-select: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Core Container Utility */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   3. PREMIUM BRAND BUTTON LAYOUTS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  transition: var(--transition-normal);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: var(--text-white);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-hover), #e04b12);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(255, 107, 53, 0.35);
+}
+
+.btn-secondary {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-medium);
+  color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.btn-grow {
+  flex-grow: 1;
+}
+
+/* Icons and stroke styling utilities */
+.orange-stroke {
+  color: var(--primary);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ==========================================================================
+   4. FLOATING TOAST ALERTS SYSTEM
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-medium);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 24px 1fr 16px;
+  align-items: center;
+  gap: 14px;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.toast.fade-out {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.toast-body {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.toast-close {
+  font-size: 18px;
+  color: var(--text-light);
+  line-height: 1;
+}
+
+.toast-close:hover {
+  color: var(--primary);
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

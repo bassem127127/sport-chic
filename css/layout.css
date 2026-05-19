@@ -1,0 +1,489 @@
+/* ==========================================================================
+   1. STICKY GLASSMORPHIC HEADER NAVBAR
+   ========================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo brand mark */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--text-dark);
+}
+
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary), var(--accent-amber));
+  border-radius: var(--radius-md);
+  color: var(--text-white);
+  box-shadow: var(--shadow-glow);
+}
+
+.brand-logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition-fast);
+}
+
+.brand-logo-img:hover {
+  transform: scale(1.05);
+}
+
+.brand span {
+  background: linear-gradient(135deg, var(--text-dark) 60%, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Nav links options */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-medium);
+  position: relative;
+  padding: 8px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+/* Actions list */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  color: var(--text-dark);
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-accent-light);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Hamburger mobile Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background-color: var(--text-dark);
+  border-radius: 2px;
+  transition: var(--transition-fast);
+}
+
+/* ==========================================================================
+   2. RESPONSIVE HERO BRAND BANNER
+   ========================================================================== */
+.hero-section {
+  padding: 60px 0;
+  background: radial-gradient(circle at 80% 20%, var(--bg-accent-medium) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 40%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero-text {
+  max-width: 620px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, var(--primary), var(--accent-amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-medium);
+  margin-bottom: 36px;
+}
+
+/* Hero visual design representing sport motion */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-visual-bg {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, var(--bg-accent-medium) 0%, rgba(255,255,255,0) 70%);
+  border-radius: var(--radius-round);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse-slow 6s ease-in-out infinite;
+}
+
+.hero-shirt-photo {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(255, 107, 53, 0.18);
+  border: 4px solid var(--bg-primary);
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   3. RICH BRAND FOOTER LAYOUT
+   ========================================================================== */
+.footer-brand {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  padding: 80px 0 30px;
+  margin-top: 60px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-medium);
+  margin: 20px 0 24px;
+  max-width: 320px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-link {
+  font-size: 14px;
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  color: var(--primary);
+  padding-left: 4px;
+}
+
+/* Newsletter embedded form */
+.newsletter-form {
+  display: flex;
+  max-width: 320px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  padding: 4px;
+  overflow: hidden;
+  transition: var(--transition-fast);
+}
+
+.newsletter-form:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.newsletter-input {
+  flex-grow: 1;
+  padding: 10px 16px;
+  font-size: 13px;
+  background: none;
+  border: none;
+}
+
+.newsletter-form .btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background-color: var(--primary);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-form .btn-icon:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Copyright & branding bottom strip */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-medium);
+  padding-top: 30px;
+  font-size: 13px;
+  color: var(--text-light);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-payment-methods {
+  display: flex;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-medium);
+}
+
+/* ==========================================================================
+   4. KEYFRAMES & ANIMATION EFFECTS
+   ========================================================================== */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ==========================================================================
+   5. RESPONSIVE MOBILE SCALING
+   ========================================================================== */
+@media (max-width: 991px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 32px;
+  }
+  
+  .hero-text {
+    margin: 0 auto;
+  }
+  
+  .hero-title {
+    font-size: 40px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hamburger toggler responsive script states */
+  .hamburger {
+    display: flex;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    flex-direction: column;
+    padding: 30px 24px;
+    gap: 20px;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-slow);
+  }
+  
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  .btn-navbar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   RTL (Arabic Layout) Adjustments
+   ========================================================================== */
+[dir="rtl"] {
+  font-family: 'Cairo', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+[dir="rtl"] .hero-title span {
+  background: linear-gradient(135deg, var(--accent-amber), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[dir="rtl"] .brand-logo-img {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+[dir="rtl"] .newsletter-form {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .newsletter-input {
+  text-align: right;
+}
+
+[dir="rtl"] .close-modal-btn {
+  right: auto;
+  left: 20px;
+}
+
+[dir="rtl"] .search-icon {
+  left: auto;
+  right: 16px;
+}
+
+[dir="rtl"] .search-input {
+  padding-left: 16px;
+  padding-right: 48px;
+  text-align: right;
+}
+
+[dir="rtl"] .btn-navbar {
+  margin: 0;
+}
+
+[dir="rtl"] .nav-link::after {
+  left: auto;
+  right: 0;
+}
