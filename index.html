@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sport Chic | Vitrine de Maillots de Sport Premium</title>
+  <meta name="description" content="Découvrez la vitrine premium de maillots de sport orange et blanc de Sport Chic. Conçus avec des tissus techniques de pointe, anti-transpirants et respirants.">
+  
+  <!-- Google Fonts for Premium Typography (Cairo for Arabic, Inter for Latin) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Modular CSS Stylesheets -->
+  <script type="module" crossorigin src="./assets/index-DsRylvbD.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BMlB77Ex.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. STICKY GLASSMORPHIC HEADER
+     ========================================================================== -->
+  <header class="header">
+    <div class="container navbar">
+      <!-- Logo Branding -->
+      <a href="#" class="brand" id="brand-logo">
+        <img class="brand-logo-img" src="./assets/logo%20sport%20chic-Z6R769I3.jpg" alt="Sport Chic Logo">
+        <span>SPORT CHIC</span>
+      </a>
+
+      <!-- Desktop Links navigation -->
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" data-i18n="nav_home">Accueil</a>
+        <a href="#showroom" class="nav-link" data-i18n="nav_showroom">Catalogue Showroom</a>
+        <a href="#" class="nav-link" data-i18n="nav_textile">Technologie Textile</a>
+        <a href="#" class="nav-link" data-i18n="nav_stores">Points de Vente</a>
+      </nav>
+
+      <!-- Showroom Quick Actions -->
+      <div class="nav-actions">
+        <!-- Language Switcher Toggle Button -->
+        <button id="lang-switch-btn" class="icon-btn" title="Changer la langue / تغيير اللغة" style="font-weight: 700; font-size: 13px; font-family: var(--font-heading);">
+          AR
+        </button>
+
+        <!-- Desktop Search Indicator - scrolls directly to showroom search -->
+        <a href="#showroom" class="icon-btn" id="nav-search-btn" data-i18n-title="search_tooltip" title="Rechercher des produits">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </a>
+
+        <!-- Admin Dashboard settings button -->
+        <button id="admin-dashboard-btn" class="icon-btn" title="Tableau de bord Administrateur" style="color: var(--text-medium); transition: var(--transition-fast);">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <!-- Premium Showcase Inquiry Button -->
+        <a href="#showroom" class="btn btn-primary btn-navbar" id="showroom-inquire-btn" style="padding: 8px 16px; font-size: 13px; margin: 0;" data-i18n="btn_inquire_showroom">
+          Contacter le Showroom
+        </a>
+
+        <!-- Hamburger triggers for mobile nav links -->
+        <button class="hamburger" id="mobile-menu-toggle" aria-label="Menu Mobile">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+     2. HERO BRAND SECTION
+     ========================================================================== -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" class="orange-stroke">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span data-i18n="hero_badge">LA COLLECTION ORANGE CINÉTIQUE</span>
+        </div>
+        <h1 class="hero-title" data-i18n="hero_title">ÉLEVEZ VOS PERFORMANCES <span>SPORTIVES</span></h1>
+        <p class="hero-tagline" data-i18n="hero_tagline">Bienvenue dans la vitrine technique Sport Chic. Découvrez nos séries limitées de maillots de sport aux finitions blanches épurées et orange cinétique. Inspectez les spécifications techniques et demandez un devis instantanément.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#showroom" class="btn btn-primary" data-i18n="btn_discover_showroom">
+            Découvrir la Vitrine
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-bg">
+          <img class="hero-shirt-photo" src="./assets/0788dd2b-5577-4402-b260-f370153b2e5a-CUuq-xqW.jpg" alt="Sport Chic Premium Sport Shirt" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+     3. PRODUCT CATALOG SHOWROOM SECTION
+     ========================================================================== -->
+  <main id="showroom" class="shop-section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 50px;">
+        <h2 style="font-size: 36px; margin-bottom: 12px;" data-i18n="showroom_title">Catalogue Showroom</h2>
+        <p style="color: var(--text-medium); max-width: 580px; margin: 0 auto;" data-i18n="showroom_subtitle">Filtrez par discipline sportive, triez par propriétés techniques ou recherchez vos tissus athlétiques préférés ci-dessous.</p>
+        <div id="db-status-badge" class="db-status-badge local" style="margin-top: 14px;">
+          <span class="db-status-dot"></span>
+          <span class="db-status-text">Catalogue Local</span>
+        </div>
+      </div>
+
+      <!-- Filters & search panel controls -->
+      <div class="filter-row">
+        <!-- Category Toggle Pills -->
+        <div class="filter-pills">
+          <button class="filter-btn active" data-category="all" id="cat-all" data-i18n="cat_all">Tous les Produits</button>
+          <button class="filter-btn" data-category="training" id="cat-training" data-i18n="cat_training">Fitness & Entraînement</button>
+          <button class="filter-btn" data-category="running" id="cat-running" data-i18n="cat_running">Course & Cyclisme</button>
+          <button class="filter-btn" data-category="tennis" id="cat-tennis" data-i18n="cat_tennis">Polo de Tennis</button>
+        </div>
+
+        <!-- Search bar inputs -->
+        <div class="search-sort-box">
+          <div class="search-wrapper">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="search-icon">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" class="search-input" data-i18n-placeholder="search_placeholder" placeholder="Rechercher un maillot de sport..." aria-label="Recherche">
+          </div>
+
+          <select id="sort-select" class="sort-select" aria-label="Trier par">
+            <option value="featured" data-i18n="sort_featured">Trier : Recommandés</option>
+            <option value="price-low" data-i18n="sort_price_low">Prix : Croissant</option>
+            <option value="price-high" data-i18n="sort_price_high">Prix : Décroissant</option>
+            <option value="rating" data-i18n="sort_rating">Avis : Les Mieux Notés</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Result Counter text -->
+      <div class="results-meta">
+        <span id="results-count">7 produits trouvés</span>
+        <span data-i18n="results_inspect">Cliquez sur un maillot pour inspecter ses spécifications techniques</span>
+      </div>
+
+      <!-- Main listing Grid elements -->
+      <div class="products-grid" id="products-grid">
+        <!-- Injected via JavaScript module app.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+     4. PRODUCT SHOWCASE DETAILS MODAL
+     ========================================================================== -->
+  <div class="modal" id="quick-view-modal">
+    <div class="modal-container">
+      <button class="close-modal-btn" id="quick-view-close" aria-label="Fermer">×</button>
+      <div id="quick-view-body">
+        <!-- Injected dynamically via JS inside app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     5. SIMULATED SHOWROOM INQUIRY MODAL
+     ========================================================================== -->
+  <div class="modal" id="inquiry-modal">
+    <div class="modal-container inquiry-container" style="max-width: 500px; padding: 40px;">
+      <button class="close-modal-btn" id="inquiry-close" aria-label="Fermer">×</button>
+      
+      <div class="checkout-header" style="text-align: center; margin-bottom: 24px;">
+        <h2 style="font-size: 24px; margin-bottom: 8px;" data-i18n="inquiry_title">Demande d'Information Produit</h2>
+        <p style="color: var(--text-medium); font-size: 14px;" data-i18n="inquiry_subtitle">Soumettez vos coordonnées pour demander un devis de taille ou des spécifications de matériaux à nos experts.</p>
+      </div>
+
+      <form id="inquiry-form" class="form-grid" style="display: grid; gap: 16px;">
+        <input type="hidden" id="inquiry-product-id">
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_selected_shirt">Maillot Sélectionné</label>
+          <input type="text" id="inquiry-product-name" class="form-input" readonly style="background-color: var(--bg-accent-light); font-weight: 700; color: var(--primary);">
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-name" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_full_name">Votre Nom Complet *</label>
+          <input type="text" id="inq-name" class="form-input" data-i18n-placeholder="placeholder_name" placeholder="Saisissez votre nom" required>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-email" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_email">Adresse E-mail *</label>
+          <input type="email" id="inq-email" class="form-input" placeholder="nom@domaine.com" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="inq-size" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_requested_size">Taille Demandée *</label>
+            <select id="inq-size" class="form-input" style="padding: 12px;" required>
+              <option value="S">S - Small</option>
+              <option value="M">M - Medium</option>
+              <option value="L">L - Large</option>
+              <option value="XL">XL - Extra Large</option>
+              <option value="XXL">XXL - Double Extra Large</option>
+            </select>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="inq-qty" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_quantity">Quantité *</label>
+            <input type="number" id="inq-qty" class="form-input" min="1" max="999" value="1" required>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="inq-msg" style="font-size: 12px; font-weight: 700; text-transform: uppercase;" data-i18n="label_additional_details">Détails Supplémentaires de la Demande *</label>
+          <textarea id="inq-msg" class="form-input" rows="3" data-i18n-placeholder="placeholder_msg" placeholder="Demander des dimensions précises, des tarifs de volume ou des fiches d'échantillons physiques..." required style="resize: none; font-family: inherit;"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" data-i18n="btn_submit_inquiry">
+          Envoyer la Demande au Showroom
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      
+      <!-- Simulated success message panel -->
+      <div id="inquiry-success-panel" style="display: none; text-align: center; padding: 20px 0;">
+        <div class="success-badge" style="width: 72px; height: 72px; background-color: var(--primary-glow); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+          <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="3" fill="none">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 style="font-size: 22px; margin-bottom: 8px; font-weight: 800;" data-i18n="inquiry_success_title">Demande Envoyée !</h3>
+        <p style="color: var(--text-medium); font-size: 14px; margin-bottom: 24px;"><span data-i18n="inquiry_success_text_part1">Merci d'avoir contacté le showroom Sport Chic. Un conseiller technique vous répondra à l'adresse </span><strong id="inq-success-email" style="color: var(--text-dark);"></strong><span data-i18n="inquiry_success_text_part2"> sous 24 heures.</span></p>
+        <div style="background-color: var(--bg-secondary); padding: 14px; border-radius: var(--radius-md); font-size: 13px; font-weight: 700; margin-bottom: 24px; color: var(--text-medium);">
+          <span data-i18n="inquiry_success_code_label">Code de Demande :</span> <span id="inq-success-code" style="color: var(--primary);"></span>
+        </div>
+        <button type="button" id="inquiry-ok-btn" class="btn btn-primary" style="width: 100%;" data-i18n="btn_back_to_showroom">Retour à la Vitrine</button>
+      </div>
+  </div>
+  </div>
+
+  <!-- ==========================================================================
+     5b. ADMIN DASHBOARD MODAL
+     ========================================================================== -->
+  <div class="modal" id="admin-modal">
+    <div class="modal-container admin-container" style="max-width: 1000px; width: 95%;">
+      <button class="close-modal-btn" id="admin-close" aria-label="Fermer">×</button>
+      
+      <div class="admin-header">
+        <h2 style="font-family: var(--font-heading); font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px;">
+          Tableau de Bord Administrateur
+        </h2>
+        <div class="connection-status-badge" id="supabase-status-badge">
+          <span class="status-dot"></span>
+          <span class="status-text">Non Connecté</span>
+        </div>
+      </div>
+      
+      <!-- Admin Tabs navigation -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="products-list">Gestion des Produits</button>
+        <button class="admin-tab" data-tab="db-config">Configuration Supabase</button>
+      </div>
+      
+      <!-- Tab content: Products list -->
+      <div class="tab-content active" id="tab-products-list">
+        <div class="admin-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <button class="btn btn-primary" id="admin-add-product-btn" style="padding: 10px 20px; font-size: 14px; margin: 0;">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 4.5px;">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Ajouter un Maillot
+          </button>
+          <button class="btn btn-secondary" id="admin-seed-db-btn" style="padding: 10px 20px; font-size: 14px; margin: 0; display: none;">
+            Initier la Base (Seed)
+          </button>
+        </div>
+        
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Nom / ID</th>
+                <th>Catégorie</th>
+                <th>Prix</th>
+                <th>Note (Avis)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Injecté dynamiquement par app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Tab content: Supabase config -->
+      <div class="tab-content" id="tab-db-config">
+        <form id="supabase-config-form" class="form-grid" style="display: grid; gap: 16px; margin-top: 10px;">
+          <p style="font-size: 14px; color: var(--text-medium); line-height: 1.5;">
+            Connectez votre projet Sport Chic à votre base de données Supabase. Saisissez vos identifiants ci-dessous pour activer le stockage dynamique en temps réel.
+          </p>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="config-supabase-url" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">URL Supabase *</label>
+            <input type="url" id="config-supabase-url" class="form-input" placeholder="https://your-project.supabase.co" required>
+          </div>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="config-supabase-key" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Clé Anonyme Publique (Anon Key) *</label>
+            <input type="password" id="config-supabase-key" class="form-input" placeholder="eyJhbGciOi..." required>
+          </div>
+          
+          <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" style="padding: 10px 24px; font-size: 14px; margin: 0;">Enregistrer la Configuration</button>
+          </div>
+        </form>
+        
+        <!-- SQL Help box -->
+        <div class="sql-help-box" style="margin-top: 24px; padding: 20px; background-color: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+          <h4 style="font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 8px; font-size: 15px;">Structure de table SQL recommandée</h4>
+          <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 12px;">
+            Exécutez ce script SQL dans l'éditeur de requêtes Supabase (SQL Editor) pour configurer la table <code>products</code> avec les colonnes et les droits d'accès requis :
+          </p>
+          <pre style="background-color: var(--text-dark); color: #c084fc; padding: 14px; border-radius: var(--radius-sm); font-size: 11px; overflow-x: auto; font-family: monospace; line-height: 1.5; max-height: 200px;" id="sql-schema-code">CREATE TABLE products (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  price NUMERIC NOT NULL,
+  category TEXT NOT NULL,
+  badge TEXT,
+  rating NUMERIC DEFAULT 5.0,
+  reviews INTEGER DEFAULT 0,
+  image TEXT NOT NULL,
+  specs JSONB NOT NULL,
+  sizes JSONB NOT NULL,
+  ar_name TEXT,
+  ar_badge TEXT,
+  ar_description TEXT,
+  ar_specs JSONB
+);
+
+-- Activer Row Level Security
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+
+-- Politiques d'accès public
+CREATE POLICY "Lecture publique" ON products FOR SELECT USING (true);
+CREATE POLICY "Insertion publique" ON products FOR INSERT WITH CHECK (true);
+CREATE POLICY "Mise a jour publique" ON products FOR UPDATE USING (true);
+CREATE POLICY "Suppression publique" ON products FOR DELETE USING (true);</pre>
+          <button type="button" class="btn btn-secondary" id="copy-sql-btn" style="padding: 6px 12px; font-size: 11px; margin-top: 8px;">Copier le SQL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     5c. PRODUCT FORM MODAL (ADD / EDIT)
+     ========================================================================== -->
+  <div class="modal" id="admin-product-form-modal">
+    <div class="modal-container" style="max-width: 700px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 30px;">
+      <button class="close-modal-btn" id="product-form-close" aria-label="Fermer">×</button>
+      
+      <h3 style="font-size: 22px; font-weight: 800; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 20px;" id="product-form-title">Ajouter un nouveau maillot</h3>
+      
+      <form id="admin-product-edit-form" class="form-grid" style="display: grid; gap: 16px;">
+        <input type="hidden" id="edit-product-mode" value="add"> <!-- add ou edit -->
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-id" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">ID du produit (slug unique) *</label>
+            <input type="text" id="prod-field-id" class="form-input" placeholder="prod-custom-shirt" required>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-category" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Discipline / Catégorie *</label>
+            <select id="prod-field-category" class="form-input" style="padding: 12px;" required>
+              <option value="training">Fitness & Entraînement</option>
+              <option value="running">Course & Cyclisme</option>
+              <option value="tennis">Polo de Tennis</option>
+            </select>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-name-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Nom (Français) *</label>
+            <input type="text" id="prod-field-name-fr" class="form-input" placeholder="T-shirt Zenith Aero Knit" required>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-name-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Nom (Arabe) *</label>
+            <input type="text" id="prod-field-name-ar" class="form-input" placeholder="تي شيرت Zenith Aero Knit" required dir="rtl">
+          </div>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="prod-field-price" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Prix ($) *</label>
+          <input type="number" id="prod-field-price" class="form-input" min="0.01" step="0.01" placeholder="49.99" required style="max-width: 220px;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Image du Produit *</label>
+          <input type="file" id="prod-field-image-file" accept="image/*" style="display: none;">
+          <input type="hidden" id="prod-field-image">
+          
+          <div class="image-upload-wrapper">
+            <!-- Drop Zone -->
+            <div class="image-upload-zone" id="image-upload-zone">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" style="color: var(--primary);">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span class="upload-zone-text">Glissez-déposez une image ici ou <strong>cliquez pour parcourir</strong></span>
+              <span class="upload-zone-hint">PNG, JPG, WEBP — max 2 Mo</span>
+            </div>
+
+            <!-- OR Separator -->
+            <div class="image-upload-or">
+              <span>ou</span>
+            </div>
+
+            <!-- URL Fallback -->
+            <input type="text" id="prod-field-image-url" class="form-input" placeholder="Coller l'URL de l'image : https://... ou images/mon-image.jpg">
+
+            <!-- Live Preview -->
+            <div class="image-preview-box" id="image-preview-box" style="display: none;">
+              <img id="image-preview-img" alt="Aperçu du produit">
+              <button type="button" class="image-preview-clear" id="image-preview-clear" title="Supprimer l'image">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-badge-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Badge (Français)</label>
+            <input type="text" id="prod-field-badge-fr" class="form-input" placeholder="Nouveauté">
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-badge-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Badge (Arabe)</label>
+            <input type="text" id="prod-field-badge-ar" class="form-input" placeholder="جديد" dir="rtl">
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-desc-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Description (Français) *</label>
+            <textarea id="prod-field-desc-fr" class="form-input" rows="3" placeholder="Description technique..." required style="resize:none; font-family:inherit;"></textarea>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-desc-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Description (Arabe) *</label>
+            <textarea id="prod-field-desc-ar" class="form-input" rows="3" placeholder="الوصف التقني..." required style="resize:none; font-family:inherit;" dir="rtl"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; display: block;">Tailles Disponibles *</label>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="form-sizes-checkboxes">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="S" checked> S
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="M" checked> M
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="L" checked> L
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="XL" checked> XL
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="XXL"> XXL
+            </label>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-specs-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Spécifications FR (Une par ligne) *</label>
+            <textarea id="prod-field-specs-fr" class="form-input" rows="4" placeholder="Composition : 88% Polyester...&#10;Technologie : HEAT.RDY...&#10;Coupe : Athlétique..." required style="resize:none; font-family:inherit;"></textarea>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-specs-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Spécifications AR (Une par ligne) *</label>
+            <textarea id="prod-field-specs-ar" class="form-input" rows="4" placeholder="التركيب : 88% بوليستر...&#10;التقنية : HEAT.RDY...&#10;القصة : رياضية..." required style="resize:none; font-family:inherit;" dir="rtl"></textarea>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; margin-left: 0; margin-right: 0;">Enregistrer le Produit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     6. FLOATING TOAST NOTIFICATIONS
+     ========================================================================== -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ==========================================================================
+     7. RICH BRAND FOOTER
+     ========================================================================== -->
+  <footer class="footer-brand">
+    <div class="container footer-grid">
+      <!-- About col -->
+      <div class="footer-col" style="grid-column: span 1.5;">
+        <div class="brand">
+          <img class="brand-logo-img" src="./assets/logo%20sport%20chic-Z6R769I3.jpg" alt="Sport Chic Logo">
+          <span>SPORT CHIC</span>
+        </div>
+        <p class="footer-desc" data-i18n="footer_desc">Concevoir des vêtements de sport haute performance pensés pour motiver et durer. Allier innovations textiles techniques et designs de pointe.</p>
+        
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast(getTranslation('toast_newsletter_success')); this.reset();">
+          <input type="email" class="newsletter-input" data-i18n-placeholder="newsletter_placeholder" placeholder="Rejoignez notre newsletter active" aria-label="E-mail" required>
+          <button type="submit" class="btn-icon" title="S'abonner">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Links col 1 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_showroom">Collections Showroom</h4>
+        <ul class="footer-links">
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_running">Hauts de Running</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_training">T-shirts d'Entraînement</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_tennis">Polos de Tennis</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_jackets">Vestes de Sport</a></li>
+          <li><a href="#showroom" class="footer-link" data-i18n="footer_link_compression">Sous-couches de Compression</a></li>
+        </ul>
+      </div>
+
+      <!-- Links col 2 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_inquiries">Demandes & Devis</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer_link_quote">Demander un Devis</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_group">Commandes de Groupe</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_specs">Fiches Techniques Tissus</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_appt">Rendez-vous Showroom</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_b2b">Partenariats B2B</a></li>
+        </ul>
+      </div>
+
+      <!-- Links col 3 -->
+      <div class="footer-col">
+        <h4 data-i18n="footer_col_company">L'Entreprise</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer_link_mission">Notre Mission</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_fabrics">Tissus Durables</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_careers">Recrutement</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_press">Espace Presse</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer_link_stores">Nos Points de Vente</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright and payments bar -->
+    <div class="container footer-bottom">
+      <div class="footer-copyright" data-i18n="footer_copyright">
+        &copy; 2026 Sport Chic Inc. Catalogue de démonstration technique showroom.
+      </div>
+      <div class="footer-payment-methods">
+        <span data-i18n="footer_b2b_showcase">Vitrine B2B</span> • 
+        <span data-i18n="footer_quote_requests">Demandes de Devis</span> • 
+        <span data-i18n="footer_sustainable_wear">Activewear Durable</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     8. MODULAR APP CONTROLLER
+     ========================================================================== -->
+
+</body>
+</html>
