@@ -499,20 +499,27 @@ function setupEventListeners() {
     renderProducts();
   });
 
-  // Admin Dashboard Opening with encrypted access code
-const adminBtn = document.getElementById("admin-dashboard-btn");
-if (adminBtn) {
-  // Base64‑encoded access code "gestprodsport#125"
-  const encryptedCode = "Z2VzdHByb2RzcG9ydCMxMjU=";
-  adminBtn.addEventListener("click", () => {
-    const code = prompt("Enter access code for Settings:");
-    if (code && atob(encryptedCode) === code) {
-      openAdminModal();
-    } else {
-      showToast("Code incorrect", "warning");
-    }
-  });
-}
+  // Admin Dashboard Opening with hashed access code (SHA-256)
+  const adminBtn = document.getElementById("admin-dashboard-btn");
+  if (adminBtn) {
+    const targetHash = "fd9c28332e0a9597f4ce6bb8e1b8321603134027caed9fc2ba4b3567da210486";
+    const sha256 = async (str) => {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    };
+
+    adminBtn.addEventListener("click", async () => {
+      const code = prompt("Enter access code for Settings:");
+      if (code) {
+        const hashedInput = await sha256(code);
+        if (hashedInput === targetHash) {
+          openAdminModal();
+        } else {
+          showToast("Code incorrect", "warning");
+        }
+      }
+    });
+  }
 
   // Close Admin Modal
   const adminClose = document.getElementById("admin-close");
