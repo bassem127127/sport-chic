@@ -5,7 +5,8 @@
  */
 
 import { products } from "./products.js";
-import { getCurrentLanguage, getTranslation, translateProduct, translatePageElements, setLanguage } from "./translations.js";
+import { getSupabaseConfig, saveSupabaseConfig, getSupabaseClient, testSupabaseConnection, fetchProducts, addProduct, updateProduct, deleteProduct, seedDatabase, uploadImage } from "./supabase.js";
+import { getCurrentLanguage, getTranslation, translateProduct, translatePageElements, setLanguage, productTranslations } from "./translations.js";
 
 // Cache des éléments DOM
 const DOM = {
@@ -35,7 +36,7 @@ const DOM = {
   // Menu Mobile
   mobileMenuToggle: document.getElementById("mobile-menu-toggle"),
   navLinks: document.querySelector(".nav-links"),
-
+  
   // Bouton de Langue Switcher
   langSwitchBtn: document.getElementById("lang-switch-btn")
 };
@@ -49,8 +50,11 @@ const state = {
   activeSelectedSize: null
 };
 
+// Global active products list inside ESM module
+let activeProducts = [...products];
+
 // Initialisation au chargement du document
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Rendre getTranslation et translations disponibles globalement pour les inline event handlers
   window.getTranslation = getTranslation;
   
@@ -61,7 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   setLanguage(initialLang);
 
-  renderProducts();
+  // Initialize and check Supabase connection status
+  await refreshDatabaseConnection();
+
   setupEventListeners();
 });
 
@@ -80,7 +86,7 @@ function renderProducts() {
   if (!DOM.productsGrid) return;
 
   // Traduire dynamiquement les produits pour la langue active
-  const localizedProducts = products.map(product => translateProduct(product));
+  const localizedProducts = activeProducts.map(product => translateProduct(product));
 
   // 1. Filtrer les produits
   const filtered = localizedProducts.filter(product => {
@@ -130,9 +136,14 @@ function renderProducts() {
       (halfStar ? `<span class="star half">★</span>` : "") + 
       `<span class="star empty">★</span>`.repeat(emptyStars);
 
+    const isOutOfStock = !product.sizes || product.sizes.length === 0;
+    const badgeHTML = isOutOfStock
+      ? `<span class="product-badge out-of-stock">${getTranslation("badge_out_of_stock")}</span>`
+      : (product.badge ? `<span class="product-badge">${product.badge}</span>` : "");
+
     return `
-      <div class="product-card" data-product-id="${product.id}">
-        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ""}
+      <div class="product-card ${isOutOfStock ? "out-of-stock" : ""}" data-product-id="${product.id}">
+        ${badgeHTML}
         
         <div class="product-visual">
           <div class="shirt-container">
@@ -195,12 +206,12 @@ function attachGridInteractions() {
  * MODAL DE DÉTAILS DU MAILLOT (QUICK VIEW)
  */
 function openQuickView(prodId) {
-  const localizedProducts = products.map(product => translateProduct(product));
+  const localizedProducts = activeProducts.map(product => translateProduct(product));
   const product = localizedProducts.find(p => p.id === prodId);
   if (!product) return;
 
   state.activeShowcaseItem = product;
-  state.activeSelectedSize = product.sizes[0];
+  state.activeSelectedSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : null;
 
   renderQuickViewContent();
   DOM.quickViewModal.classList.add("open");
@@ -230,13 +241,25 @@ function renderQuickViewContent() {
     </li>
   `).join("");
 
-  // Boutons de tailles
-  const sizesHTML = product.sizes.map(size => {
-    const isSelected = size === state.activeSelectedSize;
-    return `
-      <button class="size-pill ${isSelected ? "active" : ""}" data-size="${size}">${size}</button>
-    `;
-  }).join("");
+  // Boutons de tailles ou message hors stock
+  const isOutOfStock = !product.sizes || product.sizes.length === 0;
+  const sizesHTML = isOutOfStock
+    ? `
+      <span class="qv-out-of-stock-alert" style="color: #ef4444; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 6px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="flex-shrink:0;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        ${getTranslation("qv_out_of_stock_alert")}
+      </span>
+    `
+    : product.sizes.map(size => {
+        const isSelected = size === state.activeSelectedSize;
+        return `
+          <button class="size-pill ${isSelected ? "active" : ""}" data-size="${size}">${size}</button>
+        `;
+      }).join("");
 
   DOM.qvBody.innerHTML = `
     <div class="qv-grid">
@@ -280,13 +303,26 @@ function renderQuickViewContent() {
         </div>
         
         <div class="qv-purchase-row" style="margin-top: 24px; margin-bottom: 0;">
-          <button id="qv-inquiry-trigger-btn" class="btn btn-primary btn-grow">
-            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-            ${getTranslation("btn_qv_inquiry")}
-          </button>
+          ${isOutOfStock 
+            ? `
+              <button id="qv-inquiry-trigger-btn" class="btn btn-secondary btn-grow" disabled style="opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                ${getTranslation("badge_out_of_stock")}
+              </button>
+            `
+            : `
+              <button id="qv-inquiry-trigger-btn" class="btn btn-primary btn-grow">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                ${getTranslation("btn_qv_inquiry")}
+              </button>
+            `
+          }
         </div>
       </div>
     </div>
@@ -306,8 +342,8 @@ function setupQuickViewListeners() {
   });
 
   // Ouverture du formulaire de demande d'informations
-  const triggerBtn = DOM.qvBody.getElementById("qv-inquiry-trigger-btn");
-  if (triggerBtn) {
+  const triggerBtn = document.getElementById("qv-inquiry-trigger-btn");
+  if (triggerBtn && !triggerBtn.disabled) {
     triggerBtn.addEventListener("click", () => {
       // Fermer d'abord les détails
       DOM.quickViewModal.classList.remove("open");
@@ -420,6 +456,15 @@ function setupEventListeners() {
     if (e.target === DOM.inquiryModal) {
       closeInquiryModal();
     }
+    const adminModal = document.getElementById("admin-modal");
+    if (e.target === adminModal) {
+      adminModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    const formModal = document.getElementById("admin-product-form-modal");
+    if (e.target === formModal) {
+      formModal.classList.remove("open");
+    }
   });
 
   // Soumission du formulaire
@@ -452,6 +497,406 @@ function setupEventListeners() {
     }
     // Re-rendre la grille de produits avec les nouvelles traductions
     renderProducts();
+  });
+
+  // Admin Dashboard Opening
+  const adminBtn = document.getElementById("admin-dashboard-btn");
+  if (adminBtn) adminBtn.addEventListener("click", openAdminModal);
+
+  // Close Admin Modal
+  const adminClose = document.getElementById("admin-close");
+  if (adminClose) {
+    adminClose.addEventListener("click", () => {
+      const adminModal = document.getElementById("admin-modal");
+      if (adminModal) adminModal.classList.remove("open");
+      document.body.style.overflow = "";
+    });
+  }
+
+  // Open Product Form modal button
+  const addProductBtn = document.getElementById("admin-add-product-btn");
+  if (addProductBtn) {
+    addProductBtn.addEventListener("click", () => openProductForm(null));
+  }
+
+  // Close Product Form modal button
+  const productFormClose = document.getElementById("product-form-close");
+  if (productFormClose) {
+    productFormClose.addEventListener("click", () => {
+      const formModal = document.getElementById("admin-product-form-modal");
+      if (formModal) formModal.classList.remove("open");
+    });
+  }
+
+  // Submit of Supabase Config Form
+  const configForm = document.getElementById("supabase-config-form");
+  if (configForm) {
+    configForm.addEventListener("submit", handleConfigSubmit);
+  }
+
+  // Submit of Product Edit/Add Form
+  const productEditForm = document.getElementById("admin-product-edit-form");
+  if (productEditForm) {
+    productEditForm.addEventListener("submit", handleProductFormSubmit);
+  }
+
+  // Seed Database button
+  const seedBtn = document.getElementById("admin-seed-db-btn");
+  if (seedBtn) {
+    seedBtn.addEventListener("click", seedDatabaseAction);
+  }
+
+  // Copy SQL Script button
+  const copySqlBtn = document.getElementById("copy-sql-btn");
+  if (copySqlBtn) {
+    copySqlBtn.addEventListener("click", () => {
+      const code = document.getElementById("sql-schema-code").textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast("Script SQL copié dans le presse-papiers !", "success");
+      }).catch(err => {
+        console.error("Impossible de copier", err);
+      });
+    });
+  }
+}
+
+/**
+ * ==========================================================================
+ * ADMIN ACTIONS & SUPABASE CRUD SYSTEM
+ * ==========================================================================
+ */
+
+async function refreshDatabaseConnection() {
+  const showroomBadge = document.getElementById("db-status-badge");
+  const modalBadge = document.getElementById("supabase-status-badge");
+  
+  const result = await testSupabaseConnection();
+  const isConnected = result.success && result.tableExists;
+  
+  if (showroomBadge) {
+    showroomBadge.className = `db-status-badge ${isConnected ? 'connected' : 'local'}`;
+    const text = showroomBadge.querySelector(".db-status-text");
+    if (text) text.textContent = isConnected ? "Catalogue Supabase" : "Catalogue Local";
+  }
+  
+  if (modalBadge) {
+    modalBadge.className = `connection-status-badge ${isConnected ? 'connected' : 'local'}`;
+    const text = modalBadge.querySelector(".status-text");
+    if (text) text.textContent = isConnected ? "Connecté" : "Non Connecté";
+    const dot = modalBadge.querySelector(".status-dot");
+    if (dot) dot.style.backgroundColor = isConnected ? "rgb(34, 197, 94)" : "var(--primary)";
+  }
+  
+  const seedBtn = document.getElementById("admin-seed-db-btn");
+  if (seedBtn) {
+    seedBtn.style.display = result.success ? "inline-block" : "none";
+  }
+  
+  if (isConnected) {
+    try {
+      activeProducts = await fetchProducts();
+    } catch (e) {
+      console.error("Failed to fetch products from Supabase, falling back", e);
+      activeProducts = [...products];
+    }
+  } else {
+    activeProducts = [...products];
+  }
+  
+  renderProducts();
+}
+
+function openAdminModal() {
+  const adminModal = document.getElementById("admin-modal");
+  if (!adminModal) return;
+  
+  const { url, key } = getSupabaseConfig();
+  const urlInput = document.getElementById("config-supabase-url");
+  const keyInput = document.getElementById("config-supabase-key");
+  if (urlInput) urlInput.value = url;
+  if (keyInput) keyInput.value = key;
+  
+  renderAdminProducts();
+  setupAdminTabSwitching();
+  
+  adminModal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function renderAdminProducts() {
+  const tableBody = document.getElementById("admin-products-table-body");
+  if (!tableBody) return;
+  
+  if (activeProducts.length === 0) {
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; padding: 30px; color: var(--text-light);">
+          Aucun produit dans la base. Utilisez "Initier la Base (Seed)" pour peupler des maillots de démonstration.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+  
+  tableBody.innerHTML = activeProducts.map(product => {
+    return `
+      <tr>
+        <td>
+          <img src="${product.image}" class="admin-table-thumb" alt="${product.name}" />
+        </td>
+        <td>
+          <div style="font-weight: 700; color: var(--text-dark);">${product.name}</div>
+          <div style="font-size: 11px; color: var(--text-light); font-family: monospace;">${product.id}</div>
+        </td>
+        <td>
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--primary);">
+            ${translateCategory(product.category)}
+          </span>
+        </td>
+        <td style="font-family: var(--font-heading); font-weight: 800; color: var(--text-dark);">
+          ${product.price.toFixed(2)} $
+        </td>
+        <td>
+          <span style="font-weight: 700; color: #ffb800;">★</span> ${product.rating.toFixed(1)} <span style="color: var(--text-light);">(${product.reviews})</span>
+        </td>
+        <td>
+          <div class="admin-action-btns">
+            <button class="action-btn-circle edit-btn" data-id="${product.id}" title="Modifier">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </button>
+            <button class="action-btn-circle delete delete-btn" data-id="${product.id}" title="Supprimer">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
+  
+  tableBody.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openProductForm(btn.getAttribute("data-id"));
+    });
+  });
+  
+  tableBody.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      deleteProductAction(btn.getAttribute("data-id"));
+    });
+  });
+}
+
+function openProductForm(prodId = null) {
+  const formModal = document.getElementById("admin-product-form-modal");
+  const formTitle = document.getElementById("product-form-title");
+  const modeInput = document.getElementById("edit-product-mode");
+  const idInput = document.getElementById("prod-field-id");
+  
+  if (!formModal) return;
+  
+  document.getElementById("admin-product-edit-form").reset();
+  
+  document.querySelectorAll("#form-sizes-checkboxes input").forEach(cb => {
+    cb.checked = cb.value !== "XXL";
+  });
+  
+  if (prodId) {
+    const product = activeProducts.find(p => p.id === prodId);
+    if (!product) return;
+    
+    formTitle.textContent = "Modifier le maillot";
+    modeInput.value = "edit";
+    idInput.value = product.id;
+    idInput.readOnly = true;
+    
+    document.getElementById("prod-field-category").value = product.category;
+    document.getElementById("prod-field-name-fr").value = product.name;
+    document.getElementById("prod-field-name-ar").value = product.ar_name || "";
+    document.getElementById("prod-field-price").value = product.price;
+    document.getElementById("prod-field-image").value = product.image;
+    document.getElementById("prod-field-image-url").value = product.image;
+    document.getElementById("prod-field-badge-ar").value = product.ar_badge || "";
+    document.getElementById("prod-field-desc-fr").value = product.description;
+    document.getElementById("prod-field-desc-ar").value = product.ar_description || "";
+    
+    document.querySelectorAll("#form-sizes-checkboxes input").forEach(cb => {
+      cb.checked = product.sizes.includes(cb.value);
+    });
+    
+    document.getElementById("prod-field-specs-fr").value = (product.specs || []).join("\n");
+    document.getElementById("prod-field-specs-ar").value = (product.ar_specs || []).join("\n");
+  } else {
+    formTitle.textContent = "Ajouter un nouveau maillot";
+    modeInput.value = "add";
+    idInput.value = "";
+    // Ensure file input is cleared when opening the form
+    const fileInput = document.getElementById("prod-field-image-file");
+    if (fileInput) fileInput.value = "";
+    idInput.readOnly = false;
+    // Open the product form modal
+    formModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+async function handleProductFormSubmit(e) {
+  e.preventDefault();
+  
+  const mode = document.getElementById("edit-product-mode").value;
+  const id = document.getElementById("prod-field-id").value.trim();
+  const category = document.getElementById("prod-field-category").value;
+  const nameFr = document.getElementById("prod-field-name-fr").value.trim();
+  const nameAr = document.getElementById("prod-field-name-ar").value.trim();
+  const price = parseFloat(document.getElementById("prod-field-price").value);
+  const badgeFr = document.getElementById("prod-field-badge-fr").value.trim() || null;
+  const badgeAr = document.getElementById("prod-field-badge-ar").value.trim() || null;
+  const descFr = document.getElementById("prod-field-desc-fr").value.trim();
+  const descAr = document.getElementById("prod-field-desc-ar").value.trim();
+  
+  // Image handling: prioritize file upload, fallback to URL field
+  const fileInput = document.getElementById("prod-field-image-file");
+  const urlInput = document.getElementById("prod-field-image-url");
+  let image = ""; 
+  
+  const sizes = Array.from(document.querySelectorAll("#form-sizes-checkboxes input:checked")).map(cb => cb.value);
+  const specsFr = document.getElementById("prod-field-specs-fr").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const specsAr = document.getElementById("prod-field-specs-ar").value.split("\n").map(s => s.trim()).filter(Boolean);
+
+  // Resolve image URL: if a file is selected, upload it; otherwise use URL input.
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    try {
+      image = await uploadImage(fileInput.files[0]);
+    } catch (err) {
+      console.error("Image upload failed:", err);
+      showToast(`Erreur d'upload d'image: ${err.message || err}`, "warning");
+      return;
+    }
+  } else {
+    image = urlInput ? urlInput.value.trim() : "";
+  }
+  
+  if (!id || !nameFr || !descFr || isNaN(price) || !image || sizes.length === 0) {
+    showToast("Veuillez remplir tous les champs requis et cocher au moins une taille.", "warning");
+    return;
+  }
+  
+  const productData = {
+    id,
+    name: nameFr,
+    description: descFr,
+    price,
+    category,
+    badge: badgeFr,
+    image,
+    sizes,
+    specs: specsFr,
+    rating: 5.0,
+    reviews: 0,
+    ar_name: nameAr || null,
+    ar_badge: badgeAr || null,
+    ar_description: descAr || null,
+    ar_specs: specsAr.length > 0 ? specsAr : null
+  };
+  
+  try {
+    if (mode === "add") {
+      if (activeProducts.some(p => p.id === id)) {
+        showToast(`Un produit avec l'identifiant "${id}" existe déjà.`, "warning");
+        return;
+      }
+      await addProduct(productData);
+      showToast("Maillot ajouté avec succès à la base Supabase !", "success");
+    } else {
+      const existing = activeProducts.find(p => p.id === id);
+      if (existing) {
+        productData.rating = existing.rating;
+        productData.reviews = existing.reviews;
+      }
+      await updateProduct(id, productData);
+      showToast("Maillot modifié avec succès dans la base Supabase !", "success");
+    }
+    
+    const formModal = document.getElementById("admin-product-form-modal");
+    if (formModal) formModal.classList.remove("open");
+    
+    await refreshDatabaseConnection();
+    renderAdminProducts();
+  } catch (err) {
+    console.error("Erreur lors de la soumission du produit:", err);
+    showToast(`Erreur: ${err.message || err}`, "warning");
+  }
+}
+
+async function deleteProductAction(prodId) {
+  if (!confirm("Êtes-vous sûr de vouloir supprimer définitivement ce maillot de sport ?")) return;
+  
+  try {
+    await deleteProduct(prodId);
+    showToast("Maillot supprimé avec succès de la base Supabase !", "success");
+    await refreshDatabaseConnection();
+    renderAdminProducts();
+  } catch (err) {
+    console.error("Erreur de suppression du produit:", err);
+    showToast(`Erreur: ${err.message || err}`, "warning");
+  }
+}
+
+async function handleConfigSubmit(e) {
+  e.preventDefault();
+  const url = document.getElementById("config-supabase-url").value.trim();
+  const key = document.getElementById("config-supabase-key").value.trim();
+  
+  saveSupabaseConfig(url, key);
+  showToast("Configuration Supabase enregistrée. Reconnexion...", "success");
+  
+  await refreshDatabaseConnection();
+  renderAdminProducts();
+}
+
+async function seedDatabaseAction() {
+  if (!confirm("Voulez-vous peupler la base de données Supabase avec les 7 maillots de démonstration d'origine ? Cela écrasera les maillots ayant les mêmes identifiants.")) return;
+  
+  const seedBtn = document.getElementById("admin-seed-db-btn");
+  try {
+    if (seedBtn) {
+      seedBtn.disabled = true;
+      seedBtn.textContent = "Peuplement...";
+    }
+    await seedDatabase(products, productTranslations);
+    showToast("Base de données peuplée avec succès avec les maillots de démonstration !", "success");
+    await refreshDatabaseConnection();
+    renderAdminProducts();
+  } catch (err) {
+    console.error("Erreur de seed de la base de données:", err);
+    showToast(`Échec du seed: ${err.message || err}`, "warning");
+  } finally {
+    if (seedBtn) {
+      seedBtn.disabled = false;
+      seedBtn.textContent = "Initier la Base (Seed)";
+    }
+  }
+}
+
+function setupAdminTabSwitching() {
+  const tabs = document.querySelectorAll(".admin-tab");
+  tabs.forEach(tab => {
+    tab.onclick = () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      
+      const tabTarget = tab.getAttribute("data-tab");
+      document.querySelectorAll(".tab-content").forEach(content => {
+        content.classList.toggle("active", content.id === `tab-${tabTarget}`);
+      });
+    };
   });
 }
 

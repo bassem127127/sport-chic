@@ -679,3 +679,329 @@
     padding: 24px;
   }
 }
+
+/* ==========================================================================
+   5. DB CONNECTION STATUS BADGES
+   ========================================================================== */
+.db-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--border-medium);
+  background-color: var(--bg-secondary);
+  transition: var(--transition-normal);
+}
+.db-status-badge.local {
+  border-color: var(--border-medium);
+  color: var(--text-medium);
+}
+.db-status-badge.connected {
+  border-color: rgba(34, 197, 94, 0.3);
+  background-color: rgba(34, 197, 94, 0.05);
+  color: rgb(21, 128, 61);
+}
+.db-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-light);
+  display: inline-block;
+}
+.db-status-badge.local .db-status-dot {
+  background-color: var(--text-light);
+}
+.db-status-badge.connected .db-status-dot {
+  background-color: rgb(34, 197, 94);
+  box-shadow: 0 0 8px rgb(34, 197, 94);
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.connection-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
+}
+.connection-status-badge.connected {
+  background-color: rgba(34, 197, 94, 0.05);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: rgb(21, 128, 61);
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--text-light);
+}
+.connection-status-badge.connected .status-dot {
+  background-color: rgb(34, 197, 94);
+}
+
+/* ==========================================================================
+   6. ADMIN DASHBOARD & PRODUCT FORM
+   ========================================================================== */
+.admin-container {
+  padding: 32px;
+}
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-medium);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+.admin-tabs {
+  display: flex;
+  gap: 16px;
+  border-bottom: 1px solid var(--border-medium);
+  margin-bottom: 24px;
+}
+.admin-tab {
+  padding: 12px 20px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-medium);
+  border-bottom: 3px solid transparent;
+  transition: var(--transition-fast);
+  margin-bottom: -1px;
+}
+.admin-tab:hover {
+  color: var(--primary);
+}
+.admin-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--bg-primary);
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+.admin-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-dark);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  padding: 14px 18px;
+  border-bottom: 1.5px solid var(--border-medium);
+  white-space: nowrap;
+}
+.admin-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-medium);
+  vertical-align: middle;
+}
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+.admin-table tr:hover td {
+  background-color: var(--bg-secondary);
+}
+
+.admin-table-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+}
+
+.admin-action-btns {
+  display: flex;
+  gap: 8px;
+}
+.action-btn-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-medium);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
+  transition: var(--transition-fast);
+}
+.action-btn-circle:hover {
+  background-color: var(--bg-accent-light);
+  border-color: var(--primary-glow);
+  color: var(--primary);
+}
+.action-btn-circle.delete:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.sql-help-box pre {
+  margin-top: 10px;
+}
+
+/* Out of Stock Premium Styling */
+.product-card.out-of-stock .shirt-photo {
+  filter: grayscale(1) opacity(0.45);
+  transition: filter var(--transition-normal);
+}
+
+.product-card.out-of-stock:hover .shirt-photo {
+  filter: grayscale(0.8) opacity(0.6);
+}
+
+.product-badge.out-of-stock {
+  background: rgba(45, 45, 45, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   IMAGE UPLOAD COMPONENT
+   ======================================== */
+.image-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image-upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 16px;
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  text-align: center;
+}
+
+.image-upload-zone:hover,
+.image-upload-zone.drag-over {
+  border-color: var(--primary);
+  background-color: var(--bg-accent-light);
+}
+
+.image-upload-zone.drag-over {
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+.upload-zone-text {
+  font-size: 13px;
+  color: var(--text-medium);
+  line-height: 1.4;
+}
+
+.upload-zone-text strong {
+  color: var(--primary);
+}
+
+.upload-zone-hint {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.image-upload-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-upload-or::before,
+.image-upload-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-medium);
+}
+
+.image-upload-or span {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+}
+
+.image-preview-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  max-width: 280px;
+}
+
+.image-preview-box img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+}
+
+.image-preview-clear {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  color: white;
+  border: 2px solid var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  padding: 0;
+}
+
+.image-preview-clear:hover {
+  background-color: #dc2626;
+  transform: scale(1.15);
+}
+

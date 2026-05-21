@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Modular CSS Stylesheets -->
-  <script type="module" crossorigin src="./assets/index-BHQ4UmGm.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-D3jz5Pm4.css">
+  <!-- Modular CSS Stylesheets -->
+  <script type="module" crossorigin src="./assets/index-CjECUdGG.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BMlB77Ex.css">
 </head>
 <body>
 
@@ -50,6 +50,14 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </a>
+
+        <!-- Admin Dashboard settings button -->
+        <button id="admin-dashboard-btn" class="icon-btn" title="Tableau de bord Administrateur" style="color: var(--text-medium); transition: var(--transition-fast);">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
 
         <!-- Premium Showcase Inquiry Button -->
         <a href="#showroom" class="btn btn-primary btn-navbar" id="showroom-inquire-btn" style="padding: 8px 16px; font-size: 13px; margin: 0;" data-i18n="btn_inquire_showroom">
@@ -107,6 +115,10 @@
       <div class="text-center" style="margin-bottom: 50px;">
         <h2 style="font-size: 36px; margin-bottom: 12px;" data-i18n="showroom_title">Catalogue Showroom</h2>
         <p style="color: var(--text-medium); max-width: 580px; margin: 0 auto;" data-i18n="showroom_subtitle">Filtrez par discipline sportive, triez par propriétés techniques ou recherchez vos tissus athlétiques préférés ci-dessous.</p>
+        <div id="db-status-badge" class="db-status-badge local" style="margin-top: 14px;">
+          <span class="db-status-dot"></span>
+          <span class="db-status-text">Catalogue Local</span>
+        </div>
       </div>
 
       <!-- Filters & search panel controls -->
@@ -238,6 +250,263 @@
         </div>
         <button type="button" id="inquiry-ok-btn" class="btn btn-primary" style="width: 100%;" data-i18n="btn_back_to_showroom">Retour à la Vitrine</button>
       </div>
+  </div>
+  </div>
+
+  <!-- ==========================================================================
+     5b. ADMIN DASHBOARD MODAL
+     ========================================================================== -->
+  <div class="modal" id="admin-modal">
+    <div class="modal-container admin-container" style="max-width: 1000px; width: 95%;">
+      <button class="close-modal-btn" id="admin-close" aria-label="Fermer">×</button>
+      
+      <div class="admin-header">
+        <h2 style="font-family: var(--font-heading); font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px;">
+          Tableau de Bord Administrateur
+        </h2>
+        <div class="connection-status-badge" id="supabase-status-badge">
+          <span class="status-dot"></span>
+          <span class="status-text">Non Connecté</span>
+        </div>
+      </div>
+      
+      <!-- Admin Tabs navigation -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="products-list">Gestion des Produits</button>
+        <button class="admin-tab" data-tab="db-config">Configuration Supabase</button>
+      </div>
+      
+      <!-- Tab content: Products list -->
+      <div class="tab-content active" id="tab-products-list">
+        <div class="admin-actions-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <button class="btn btn-primary" id="admin-add-product-btn" style="padding: 10px 20px; font-size: 14px; margin: 0;">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" style="margin-right: 4.5px;">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Ajouter un Maillot
+          </button>
+          <button class="btn btn-secondary" id="admin-seed-db-btn" style="padding: 10px 20px; font-size: 14px; margin: 0; display: none;">
+            Initier la Base (Seed)
+          </button>
+        </div>
+        
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Nom / ID</th>
+                <th>Catégorie</th>
+                <th>Prix</th>
+                <th>Note (Avis)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Injecté dynamiquement par app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Tab content: Supabase config -->
+      <div class="tab-content" id="tab-db-config">
+        <form id="supabase-config-form" class="form-grid" style="display: grid; gap: 16px; margin-top: 10px;">
+          <p style="font-size: 14px; color: var(--text-medium); line-height: 1.5;">
+            Connectez votre projet Sport Chic à votre base de données Supabase. Saisissez vos identifiants ci-dessous pour activer le stockage dynamique en temps réel.
+          </p>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="config-supabase-url" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">URL Supabase *</label>
+            <input type="url" id="config-supabase-url" class="form-input" placeholder="https://your-project.supabase.co" required>
+          </div>
+          
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="config-supabase-key" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Clé Anonyme Publique (Anon Key) *</label>
+            <input type="password" id="config-supabase-key" class="form-input" placeholder="eyJhbGciOi..." required>
+          </div>
+          
+          <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary" style="padding: 10px 24px; font-size: 14px; margin: 0;">Enregistrer la Configuration</button>
+          </div>
+        </form>
+        
+        <!-- SQL Help box -->
+        <div class="sql-help-box" style="margin-top: 24px; padding: 20px; background-color: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
+          <h4 style="font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 8px; font-size: 15px;">Structure de table SQL recommandée</h4>
+          <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 12px;">
+            Exécutez ce script SQL dans l'éditeur de requêtes Supabase (SQL Editor) pour configurer la table <code>products</code> avec les colonnes et les droits d'accès requis :
+          </p>
+          <pre style="background-color: var(--text-dark); color: #c084fc; padding: 14px; border-radius: var(--radius-sm); font-size: 11px; overflow-x: auto; font-family: monospace; line-height: 1.5; max-height: 200px;" id="sql-schema-code">CREATE TABLE products (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  price NUMERIC NOT NULL,
+  category TEXT NOT NULL,
+  badge TEXT,
+  rating NUMERIC DEFAULT 5.0,
+  reviews INTEGER DEFAULT 0,
+  image TEXT NOT NULL,
+  specs JSONB NOT NULL,
+  sizes JSONB NOT NULL,
+  ar_name TEXT,
+  ar_badge TEXT,
+  ar_description TEXT,
+  ar_specs JSONB
+);
+
+-- Activer Row Level Security
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+
+-- Politiques d'accès public
+CREATE POLICY "Lecture publique" ON products FOR SELECT USING (true);
+CREATE POLICY "Insertion publique" ON products FOR INSERT WITH CHECK (true);
+CREATE POLICY "Mise a jour publique" ON products FOR UPDATE USING (true);
+CREATE POLICY "Suppression publique" ON products FOR DELETE USING (true);</pre>
+          <button type="button" class="btn btn-secondary" id="copy-sql-btn" style="padding: 6px 12px; font-size: 11px; margin-top: 8px;">Copier le SQL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+     5c. PRODUCT FORM MODAL (ADD / EDIT)
+     ========================================================================== -->
+  <div class="modal" id="admin-product-form-modal">
+    <div class="modal-container" style="max-width: 700px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 30px;">
+      <button class="close-modal-btn" id="product-form-close" aria-label="Fermer">×</button>
+      
+      <h3 style="font-size: 22px; font-weight: 800; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 20px;" id="product-form-title">Ajouter un nouveau maillot</h3>
+      
+      <form id="admin-product-edit-form" class="form-grid" style="display: grid; gap: 16px;">
+        <input type="hidden" id="edit-product-mode" value="add"> <!-- add ou edit -->
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-id" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">ID du produit (slug unique) *</label>
+            <input type="text" id="prod-field-id" class="form-input" placeholder="prod-custom-shirt" required>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-category" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Discipline / Catégorie *</label>
+            <select id="prod-field-category" class="form-input" style="padding: 12px;" required>
+              <option value="training">Fitness & Entraînement</option>
+              <option value="running">Course & Cyclisme</option>
+              <option value="tennis">Polo de Tennis</option>
+            </select>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-name-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Nom (Français) *</label>
+            <input type="text" id="prod-field-name-fr" class="form-input" placeholder="T-shirt Zenith Aero Knit" required>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-name-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Nom (Arabe) *</label>
+            <input type="text" id="prod-field-name-ar" class="form-input" placeholder="تي شيرت Zenith Aero Knit" required dir="rtl">
+          </div>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label for="prod-field-price" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Prix ($) *</label>
+          <input type="number" id="prod-field-price" class="form-input" min="0.01" step="0.01" placeholder="49.99" required style="max-width: 220px;">
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Image du Produit *</label>
+          <input type="file" id="prod-field-image-file" accept="image/*" style="display: none;">
+          <input type="hidden" id="prod-field-image">
+          
+          <div class="image-upload-wrapper">
+            <!-- Drop Zone -->
+            <div class="image-upload-zone" id="image-upload-zone">
+              <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" style="color: var(--primary);">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span class="upload-zone-text">Glissez-déposez une image ici ou <strong>cliquez pour parcourir</strong></span>
+              <span class="upload-zone-hint">PNG, JPG, WEBP — max 2 Mo</span>
+            </div>
+
+            <!-- OR Separator -->
+            <div class="image-upload-or">
+              <span>ou</span>
+            </div>
+
+            <!-- URL Fallback -->
+            <input type="text" id="prod-field-image-url" class="form-input" placeholder="Coller l'URL de l'image : https://... ou images/mon-image.jpg">
+
+            <!-- Live Preview -->
+            <div class="image-preview-box" id="image-preview-box" style="display: none;">
+              <img id="image-preview-img" alt="Aperçu du produit">
+              <button type="button" class="image-preview-clear" id="image-preview-clear" title="Supprimer l'image">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-badge-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Badge (Français)</label>
+            <input type="text" id="prod-field-badge-fr" class="form-input" placeholder="Nouveauté">
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-badge-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Badge (Arabe)</label>
+            <input type="text" id="prod-field-badge-ar" class="form-input" placeholder="جديد" dir="rtl">
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-desc-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Description (Français) *</label>
+            <textarea id="prod-field-desc-fr" class="form-input" rows="3" placeholder="Description technique..." required style="resize:none; font-family:inherit;"></textarea>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-desc-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Description (Arabe) *</label>
+            <textarea id="prod-field-desc-ar" class="form-input" rows="3" placeholder="الوصف التقني..." required style="resize:none; font-family:inherit;" dir="rtl"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; display: block;">Tailles Disponibles *</label>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="form-sizes-checkboxes">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="S" checked> S
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="M" checked> M
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="L" checked> L
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="XL" checked> XL
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 12px; border: 1px solid var(--border-medium); border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;">
+              <input type="checkbox" value="XXL"> XXL
+            </label>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-specs-fr" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Spécifications FR (Une par ligne) *</label>
+            <textarea id="prod-field-specs-fr" class="form-input" rows="4" placeholder="Composition : 88% Polyester...&#10;Technologie : HEAT.RDY...&#10;Coupe : Athlétique..." required style="resize:none; font-family:inherit;"></textarea>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
+            <label for="prod-field-specs-ar" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Spécifications AR (Une par ligne) *</label>
+            <textarea id="prod-field-specs-ar" class="form-input" rows="4" placeholder="التركيب : 88% بوليستر...&#10;التقنية : HEAT.RDY...&#10;القصة : رياضية..." required style="resize:none; font-family:inherit;" dir="rtl"></textarea>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; margin-left: 0; margin-right: 0;">Enregistrer le Produit</button>
+      </form>
     </div>
   </div>
 
@@ -322,7 +591,7 @@
 
   <!-- ==========================================================================
      8. MODULAR APP CONTROLLER
-     ========================================================================== -->
+     ========================================================================== -->
 
 </body>
 </html>

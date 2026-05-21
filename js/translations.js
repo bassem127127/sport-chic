@@ -71,6 +71,8 @@ export const translations = {
     qv_reviews_suffix: "avis clients",
     qv_card_details_pill: "Détails",
     qv_card_tech_btn: "Fiche Tech",
+    badge_out_of_stock: "Hors Stock",
+    qv_out_of_stock_alert: "Ce maillot est actuellement en rupture de stock.",
     
     // Toasts
     toast_newsletter_success: "Inscription réussie à la newsletter Sport Chic !",
@@ -175,6 +177,8 @@ export const translations = {
     qv_reviews_suffix: "آراء العملاء",
     qv_card_details_pill: "تفاصيل",
     qv_card_tech_btn: "المواصفات",
+    badge_out_of_stock: "خارج المخزن",
+    qv_out_of_stock_alert: "هذا القميص غير متوفر حالياً في المخزن.",
     
     // Toasts
     toast_newsletter_success: "تم الاشتراك بنجاح في نشرة سبورت شيك الإخبارية!",
@@ -339,6 +343,18 @@ export function getTranslation(key, count = null) {
 export function translateProduct(product) {
   const lang = state.currentLanguage;
   if (lang === "fr") return product; // Default language has fields in place
+  
+  // Try to use product's own localized fields if they exist (e.g. from Supabase)
+  const l = lang === "ar" ? "ar" : lang;
+  if (product[`${l}_name`]) {
+    return {
+      ...product,
+      name: product[`${l}_name`] || product.name,
+      badge: product[`${l}_badge`] !== undefined ? product[`${l}_badge`] : product.badge,
+      description: product[`${l}_description`] || product.description,
+      specs: Array.isArray(product[`${l}_specs`]) ? product[`${l}_specs`] : product.specs
+    };
+  }
   
   const prodTrans = productTranslations[lang]?.[product.id];
   if (!prodTrans) return product; // No translations found
