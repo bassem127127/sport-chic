@@ -499,9 +499,20 @@ function setupEventListeners() {
     renderProducts();
   });
 
-  // Admin Dashboard Opening
-  const adminBtn = document.getElementById("admin-dashboard-btn");
-  if (adminBtn) adminBtn.addEventListener("click", openAdminModal);
+  // Admin Dashboard Opening with encrypted access code
+const adminBtn = document.getElementById("admin-dashboard-btn");
+if (adminBtn) {
+  // Base64‑encoded access code "gestprodsport#125"
+  const encryptedCode = "Z2VzdHByb2RzcG9ydCMxMjU=";
+  adminBtn.addEventListener("click", () => {
+    const code = prompt("Enter access code for Settings:");
+    if (code && atob(encryptedCode) === code) {
+      openAdminModal();
+    } else {
+      showToast("Code incorrect", "warning");
+    }
+  });
+}
 
   // Close Admin Modal
   const adminClose = document.getElementById("admin-close");
