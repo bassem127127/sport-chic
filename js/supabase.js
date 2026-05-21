@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 // Cache du client Supabase pour éviter les réinitialisations multiples
 let cachedClient = null;
@@ -248,3 +248,4 @@ export async function seedDatabase(defaultProducts, productTranslations) {
   console.log("Supabase database seeded with", supabaseProducts.length, "products");
   return data;
 }
+
