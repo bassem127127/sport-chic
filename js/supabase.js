@@ -7,10 +7,16 @@ let cachedClient = null;
  * Récupère la configuration Supabase stockée localement ou dans les variables d'environnement.
  */
 export function getSupabaseConfig() {
-  // Safely read Vite inlined env vars — when running unbuilt source
-  // (for example if index.html loads raw `js/*.js` on the server) `import.meta.env`
-  // may be undefined in the browser. Guard against that to avoid runtime errors.
-  const env = (typeof import !== "undefined" && typeof import.meta !== "undefined" && import.meta.env) ? import.meta.env : {};
+  // Safely read Vite inlined env vars. Use a try/catch to avoid
+  // parser/runtime issues when `import.meta` isn't available or when
+  // the source is served without a Vite build step.
+  let env = {};
+  try {
+    env = (import.meta && import.meta.env) ? import.meta.env : {};
+  } catch (e) {
+    env = {};
+  }
+
   const url = localStorage.getItem("sport_chic_supabase_url") || env.VITE_SUPABASE_URL || "";
   const key = localStorage.getItem("sport_chic_supabase_key") || env.VITE_SUPABASE_ANON_KEY || "";
   if (!url || !key) {
