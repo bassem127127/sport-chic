@@ -9,7 +9,6 @@ export const translations = {
     // Nav links
     nav_home: "Accueil",
     nav_showroom: "Catalogue Showroom",
-    nav_stores: "Points de Vente",
     btn_inquire_showroom: "Contacter le Showroom",
     search_tooltip: "Rechercher des produits",
     
@@ -116,7 +115,6 @@ export const translations = {
     // Nav links
     nav_home: "الرئيسية",
     nav_showroom: "كتالوج صالة العرض",
-    nav_stores: "نقاط البيع",
     btn_inquire_showroom: "اتصل بصالة العرض",
     search_tooltip: "البحث عن المنتجات",
     
