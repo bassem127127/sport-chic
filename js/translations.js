@@ -18,6 +18,8 @@ export const translations = {
     hero_title: "ÉLEVEZ VOS PERFORMANCES <span>SPORTIVES</span>",
     hero_tagline: "Bienvenue dans la vitrine technique Sport Chic. Découvrez nos séries limitées de maillots de sport aux finitions blanches épurées et orange cinétique. Inspectez les spécifications techniques et demandez un devis instantanément.",
     btn_discover_showroom: "Découvrir la Vitrine",
+    btn_facebook: "Page Facebook",
+    btn_whatsapp: "WhatsApp Showroom",
     
     // Showroom Header
     showroom_title: "Catalogue Showroom",
@@ -123,6 +125,8 @@ export const translations = {
     hero_title: "ارتقِ بأدائك <span>الرياضي</span>",
     hero_tagline: "مرحبًا بكم في معرض سبورت شيك التقني. اكتشفوا مجموعاتنا المحدودة من القمصان الرياضية بلمسات بيضاء أنيقة وبرتقالي حركي. تصفحوا المواصفات الفنية واطلبوا عرض سعر على الفور.",
     btn_discover_showroom: "اكتشف المعرض",
+    btn_facebook: "صفحة فيسبوك",
+    btn_whatsapp: "واتساب صالة العرض",
     
     // Showroom Header
     showroom_title: "كتالوج صالة العرض",
